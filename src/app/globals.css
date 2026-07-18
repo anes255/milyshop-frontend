@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&family=Cairo:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold: #c48ba3;
+  --beige: #fdf5f4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #fffdfc;
+  color: #5b4750;
+  font-family: "Poppins", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+html[dir="rtl"] body {
+  font-family: "Cairo", "Tajawal", sans-serif;
+}
+
+h1, h2, h3, .serif {
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+html[dir="rtl"] h1,
+html[dir="rtl"] h2,
+html[dir="rtl"] h3 {
+  font-family: "Cairo", sans-serif;
+  font-weight: 700;
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-7 py-3 text-sm font-medium tracking-wide rounded-full transition-all duration-200;
+  }
+  .btn-primary {
+    @apply btn bg-gold text-white hover:bg-gold-dark shadow-sm;
+  }
+  .btn-gold {
+    @apply btn bg-gold text-white hover:bg-gold-dark shadow-sm;
+  }
+  .btn-outline {
+    @apply btn border border-gold text-gold hover:bg-gold hover:text-white;
+  }
+  .container-mily {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  .input {
+    @apply w-full rounded-xl border border-beige-dark bg-white px-4 py-3 text-sm outline-none focus:border-gold transition;
+  }
+  .label {
+    @apply block text-sm font-medium text-ink mb-1.5;
+  }
+  .section-title {
+    @apply text-3xl md:text-4xl font-semibold text-gold-dark text-center;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.fade-up { animation: fadeUp 0.5s ease both; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
