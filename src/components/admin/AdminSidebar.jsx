@@ -34,7 +34,7 @@ export default function AdminSidebar({ user, lang = "fr" }) {
         </button>
       </div>
 
-      <aside className={`fixed top-0 start-0 z-40 h-full w-64 bg-ink text-white/80 flex flex-col transition-transform lg:translate-x-0 ${open ? "translate-x-0" : "ltr:-translate-x-full rtl:translate-x-full"}`}>
+      <aside className={`fixed top-0 start-0 z-40 h-full w-64 bg-ink text-white/80 flex flex-col transition-transform lg:translate-x-0 ${open ? "max-lg:translate-x-0" : "max-lg:-translate-x-full max-lg:rtl:translate-x-full"}`}>
         <div className="h-20 flex items-center px-6 border-b border-white/10">
           <span className="serif text-xl text-gold">{t.adminTitle}</span>
         </div>
