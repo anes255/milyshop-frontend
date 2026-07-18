@@ -33,10 +33,15 @@ export default function CategoryStrip({ categories = [] }) {
           href={`/shop?category=${c.slug}`}
           className="group flex flex-col items-center gap-3 rounded-2xl border border-beige-dark bg-beige/40 p-6 transition hover:bg-rose-light hover:border-gold"
         >
-          <span className="w-14 h-14 rounded-full bg-white flex items-center justify-center text-gold transition group-hover:scale-110">
-            <svg width="26" height="26" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-              <path d={ICONS[c.slug] || ICONS.default} />
-            </svg>
+          <span className="w-14 h-14 rounded-full bg-white flex items-center justify-center overflow-hidden text-gold transition group-hover:scale-110">
+            {c.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={c.image} alt={localizedName(c, lang)} className="w-full h-full object-cover" />
+            ) : (
+              <svg width="26" height="26" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                <path d={ICONS[c.slug] || ICONS.default} />
+              </svg>
+            )}
           </span>
           <span className="text-sm font-medium text-ink text-center leading-tight">
             {localizedName(c, lang)}
