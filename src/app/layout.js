@@ -18,10 +18,10 @@ const DESCRIPTION = "Boutique de mode féminine — élégance et raffinement. |
 export async function generateMetadata() {
   const settings = await getSettings();
   const logo = settings?.logo || "/logo.png";
-  // A usable logo (uploaded data URL or an http URL) is served as a real
-  // image by the backend at /api/logo, so social scrapers can fetch it.
-  const hasLogo = typeof logo === "string" && (logo.startsWith("data:") || /^https?:\/\//.test(logo));
-  const ogImage = hasLogo ? `${API_URL}/api/logo` : "/og.png";
+  // og:image must be a fetchable URL. A path (/logo.png) or http URL works as-is
+  // (Next resolves it against metadataBase); an admin-uploaded data URL is served
+  // as a real image by the backend at /api/logo instead.
+  const ogImage = typeof logo === "string" && logo.startsWith("data:") ? `${API_URL}/api/logo` : logo;
   return {
     metadataBase: new URL(SITE_URL),
     title: TITLE,
@@ -32,7 +32,7 @@ export async function generateMetadata() {
       description: DESCRIPTION,
       url: SITE_URL,
       siteName: "Boutique MilyShop",
-      images: [{ url: ogImage, width: 1200, height: 630, alt: "Boutique MilyShop" }],
+      images: [ogImage],
       type: "website",
     },
     twitter: {

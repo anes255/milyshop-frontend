@@ -4,7 +4,7 @@ import { DEMO_CATEGORIES } from "./demo";
 export const DEFAULT_SETTINGS = {
   id: "main",
   siteName: "Boutique MilyShop",
-  logo: "/logo.svg",
+  logo: "/logo.png",
   phone: "+213 555 000 000",
   email: "contact@milyshop.com",
   whatsapp: "+213555000000",
