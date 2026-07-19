@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { getAdminDict } from "@/lib/admin-i18n";
+import { useLang } from "@/components/LangProvider";
 import { clearToken } from "@/lib/api";
 
 const LINKS = [
@@ -17,8 +18,11 @@ const LINKS = [
 export default function AdminSidebar({ user, lang = "fr" }) {
   const pathname = usePathname();
   const router = useRouter();
+  const { setLang } = useLang();
   const [open, setOpen] = useState(false);
   const t = getAdminDict(lang);
+  const otherLang = lang === "fr" ? "عربي" : "FR";
+  const toggleLang = () => setLang(lang === "fr" ? "ar" : "fr");
 
   const logout = () => {
     clearToken();
@@ -29,9 +33,14 @@ export default function AdminSidebar({ user, lang = "fr" }) {
     <>
       <div className="lg:hidden fixed top-0 inset-x-0 z-40 bg-ink text-white flex items-center justify-between px-4 h-14">
         <span className="serif text-lg text-gold">{t.adminTitle}</span>
-        <button onClick={() => setOpen(!open)} aria-label="menu">
-          <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
+        <div className="flex items-center gap-3">
+          <button onClick={toggleLang} className="text-xs font-medium border border-white/30 px-2 py-1 rounded hover:border-gold">
+            {otherLang}
+          </button>
+          <button onClick={() => setOpen(!open)} aria-label="menu">
+            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
       </div>
 
       <aside className={`fixed top-0 start-0 z-40 h-full w-64 bg-ink text-white/80 flex flex-col transition-transform lg:translate-x-0 ${open ? "max-lg:translate-x-0" : "max-lg:-translate-x-full max-lg:rtl:translate-x-full"}`}>
@@ -51,6 +60,10 @@ export default function AdminSidebar({ user, lang = "fr" }) {
         </nav>
         <div className="p-4 border-t border-white/10">
           <p className="text-xs text-white/50 mb-2 px-2">{user.email}</p>
+          <button onClick={toggleLang} className="flex items-center gap-3 w-full text-start px-4 py-2 text-sm hover:bg-white/10 rounded">
+            <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18" /></svg>
+            {otherLang === "FR" ? "Français" : "العربية"}
+          </button>
           <Link href="/" className="block px-4 py-2 text-sm hover:bg-white/10 rounded">{t.backToShop}</Link>
           <button onClick={logout} className="block w-full text-start px-4 py-2 text-sm text-red-300 hover:bg-white/10 rounded">{t.logout}</button>
         </div>
